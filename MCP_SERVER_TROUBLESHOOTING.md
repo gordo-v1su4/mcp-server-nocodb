@@ -42,13 +42,48 @@ curl -k -X POST https://mcp.v1su4.com/call \
    ```
 4. Restart the service
 
-### Issue 2: SSL Certificate Problems
+### Issue 2: Authentication Errors (401 Unauthorized)
+**Symptoms:** Server returns "401 Unauthorized" or "Invalid API key"
+
+**Solution:**
+1. **Check MCP_API_KEY environment variable:**
+   ```bash
+   # In Coolify, ensure you have:
+   MCP_API_KEY=your_secure_mcp_api_key_here
+   ```
+
+2. **Check Cursor environment variables:**
+   ```bash
+   # In your terminal, set:
+   export MCP_API_KEY="your_secure_mcp_api_key_here"
+   export NOCODB_API_TOKEN="your_nocodb_token_here"
+   ```
+
+3. **Verify API key in Cursor MCP config:**
+   ```json
+   {
+     "env": {
+       "MCP_API_KEY": "${MCP_API_KEY}",
+       "NOCODB_API_TOKEN": "${NOCODB_API_TOKEN}"
+     }
+   }
+   ```
+
+4. **Test with curl:**
+   ```bash
+   curl -k -X POST https://mcp.v1su4.com/call \
+     -H "Authorization: Bearer your_mcp_api_key" \
+     -H "Content-Type: application/json" \
+     -d '{"name": "nocodb_test_connection", "arguments": {"api_token": "test"}}'
+   ```
+
+### Issue 3: SSL Certificate Problems
 **Symptoms:** curl fails with SSL errors
 
 **Current Fix:** MCP config uses `-k` flag to skip SSL verification
 **Permanent Fix:** Wait for SSL certificate to be issued (usually 5-10 minutes)
 
-### Issue 3: Port Configuration
+### Issue 4: Port Configuration
 **Symptoms:** Server responds but on wrong port
 
 **Check:**
