@@ -3,7 +3,8 @@ NocoDB MCP Server - FastAPI Implementation
 Alternative to the Node.js version for better async performance
 """
 
-from fastapi import FastAPI, HTTPException, Request, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Request, BackgroundTasks, Depends, Security
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel
@@ -19,6 +20,9 @@ import json
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+# Security setup
+security = HTTPBearer(auto_error=False)
+
 # FastAPI app
 app = FastAPI(
     title="NocoDB MCP Server",
@@ -27,6 +31,26 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc"
 )
+
+# API Key configuration
+MCP_API_KEY = os.getenv("MCP_API_KEY", "your_mcp_api_key_here")
+
+async def verify_api_key(credentials: Optional[HTTPAuthorizationCredentials] = Security(security)):
+    """Verify API key from request headers"""
+    if not credentials:
+        raise HTTPException(status_code=401, detail="API key required")
+
+    # Check if it's a Bearer token
+    if credentials.scheme.lower() == "bearer":
+        if credentials.credentials != MCP_API_KEY:
+            raise HTTPException(status_code=401, detail="Invalid API key")
+    else:
+        # Check for X-API-Key header or api_key parameter
+        api_key = credentials.credentials
+        if api_key != MCP_API_KEY:
+            raise HTTPException(status_code=401, detail="Invalid API key")
+
+    return credentials
 
 # CORS middleware
 app.add_middleware(
@@ -97,7 +121,7 @@ async def health_check():
     }
 
 @app.get("/tools")
-async def list_tools():
+async def list_tools(api_key: HTTPAuthorizationCredentials = Depends(verify_api_key)):
     """List available MCP tools"""
     tools = {
         "name": "nocodb-mcp-tools",
@@ -241,7 +265,7 @@ async def list_tools():
     return tools
 
 @app.post("/call", response_model=MCPResponse)
-async def execute_tool(tool_call: ToolCall):
+async def execute_tool(tool_call: ToolCall, api_key: HTTPAuthorizationCredentials = Depends(verify_api_key)):
     """Execute MCP tool calls"""
     try:
         logger.info(f"🔧 Executing tool: {tool_call.name}")

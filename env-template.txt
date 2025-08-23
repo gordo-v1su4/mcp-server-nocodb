@@ -1,8 +1,17 @@
 # NocoDB MCP Server Environment Variables for Coolify
 # Add these to your Coolify service environment variables
 
+# Required: Your NocoDB API token from nocodb.v1su4.com
 NOCODB_API_TOKEN=your_nocodb_api_token_here
+
+# Required: API key for MCP server authentication (separate from NocoDB)
+MCP_API_KEY=your_secure_mcp_api_key_here
+
+# Required: NocoDB instance URL
 NOCODB_URL=https://nocodb.v1su4.com
+
+# Optional: Server port (default: 3001)
 PORT=3001
-NODE_ENV=production
-LOG_LEVEL=info
+
+# Optional: Python path (for FastAPI)
+PYTHONPATH=/app
