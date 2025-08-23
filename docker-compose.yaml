@@ -4,7 +4,7 @@ services:
   nocodb-mcp-server:
     build:
       context: .
-      dockerfile: Dockerfile.fastapi
+      dockerfile: Dockerfile
     ports:
       - "3001:3001"
     environment:
