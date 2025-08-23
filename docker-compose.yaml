@@ -13,7 +13,7 @@ services:
       - NOCODB_URL=https://nocodb.v1su4.com
       - NOCODB_API_TOKEN=${NOCODB_API_TOKEN}
     env_file:
-      - .env
+      - local.env
     restart: unless-stopped
     healthcheck:
       test: ["CMD", "python", "-c", "import aiohttp, asyncio; asyncio.run(aiohttp.ClientSession().get('http://localhost:3001/health'))"]

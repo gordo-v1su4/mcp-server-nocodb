@@ -9,7 +9,7 @@
     "test": "curl http://localhost:3001/health",
     "docker-build": "docker build -t gordo-v1su4/nocodb-mcp-server .",
     "docker-push": "docker push gordo-v1su4/nocodb-mcp-server",
-    "docker-run": "docker run -p 3001:3001 --env-file .env gordo-v1su4/nocodb-mcp-server",
+    "docker-run": "docker run -p 3001:3001 --env-file local.env gordo-v1su4/nocodb-mcp-server",
     "compose-up": "docker-compose up -d",
     "compose-down": "docker-compose down",
     "compose-logs": "docker-compose logs -f nocodb-mcp-server",
