@@ -1,0 +1,33 @@
+{
+  "name": "nocodb-mcp-server",
+  "version": "1.0.0",
+  "description": "Production NocoDB MCP Server for Cursor IDE integration",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "NODE_ENV=development node server.js",
+    "test": "curl http://localhost:3001/health",
+    "docker-build": "docker build -t gordo-v1su4/nocodb-mcp-server .",
+    "docker-push": "docker push gordo-v1su4/nocodb-mcp-server",
+    "docker-run": "docker run -p 3001:3001 --env-file .env gordo-v1su4/nocodb-mcp-server"
+  },
+  "keywords": [
+    "nocodb",
+    "mcp",
+    "cursor",
+    "discord",
+    "automation",
+    "api"
+  ],
+  "author": "gordo-v1su4",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gordo-v1su4/mcp-server.git"
+  },
+  "homepage": "https://github.com/gordo-v1su4/mcp-server"
+}

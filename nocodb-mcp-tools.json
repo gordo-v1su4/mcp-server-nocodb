@@ -1,0 +1,283 @@
+{
+  "name": "nocodb-mcp-tools",
+  "description": "NocoDB Model Context Protocol tools for Cursor IDE integration",
+  "version": "1.0.0",
+  "tools": [
+    {
+      "name": "nocodb_test_connection",
+      "description": "Test connection to NocoDB instance",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL (default: https://nocodb.v1su4.com)",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          }
+        },
+        "required": ["api_token"]
+      }
+    },
+    {
+      "name": "nocodb_list_projects",
+      "description": "List all projects in NocoDB",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          }
+        },
+        "required": ["api_token"]
+      }
+    },
+    {
+      "name": "nocodb_list_tables",
+      "description": "List tables in a specific project",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID to list tables from"
+          }
+        },
+        "required": ["api_token", "project_id"]
+      }
+    },
+    {
+      "name": "nocodb_get_records",
+      "description": "Get records from a NocoDB table",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Table ID"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Maximum number of records to return",
+            "default": 10
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Number of records to skip",
+            "default": 0
+          }
+        },
+        "required": ["api_token", "project_id", "table_id"]
+      }
+    },
+    {
+      "name": "nocodb_create_record",
+      "description": "Create a new record in NocoDB table",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Table ID"
+          },
+          "record_data": {
+            "type": "object",
+            "description": "Record data as JSON object"
+          }
+        },
+        "required": ["api_token", "project_id", "table_id", "record_data"]
+      }
+    },
+    {
+      "name": "nocodb_search_records",
+      "description": "Search records in NocoDB table with filters",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Table ID"
+          },
+          "filters": {
+            "type": "object",
+            "description": "Search filters as JSON object"
+          }
+        },
+        "required": ["api_token", "project_id", "table_id", "filters"]
+      }
+    },
+    {
+      "name": "nocodb_update_record",
+      "description": "Update an existing record in NocoDB table",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Table ID"
+          },
+          "record_id": {
+            "type": "string",
+            "description": "Record ID to update"
+          },
+          "record_data": {
+            "type": "object",
+            "description": "Updated record data as JSON object"
+          }
+        },
+        "required": ["api_token", "project_id", "table_id", "record_id", "record_data"]
+      }
+    },
+    {
+      "name": "nocodb_delete_record",
+      "description": "Delete a record from NocoDB table",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Table ID"
+          },
+          "record_id": {
+            "type": "string",
+            "description": "Record ID to delete"
+          }
+        },
+        "required": ["api_token", "project_id", "table_id", "record_id"]
+      }
+    },
+    {
+      "name": "nocodb_create_discord_reactions_table",
+      "description": "Create the Discord Heart Reactions table schema",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID to create table in"
+          }
+        },
+        "required": ["api_token", "project_id"]
+      }
+    },
+    {
+      "name": "nocodb_get_analytics",
+      "description": "Get analytics and statistics for Discord Heart Reactions",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "NocoDB instance URL",
+            "default": "https://nocodb.v1su4.com"
+          },
+          "api_token": {
+            "type": "string",
+            "description": "NocoDB API token"
+          },
+          "project_id": {
+            "type": "string",
+            "description": "Project ID"
+          },
+          "table_id": {
+            "type": "string",
+            "description": "Table ID for Discord reactions"
+          }
+        },
+        "required": ["api_token", "project_id", "table_id"]
+      }
+    }
+  ]
+}
