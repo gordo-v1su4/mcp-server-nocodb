@@ -290,7 +290,7 @@ async def execute_nocodb_tool(tool_name: str, args: Dict[str, Any], api_token: s
 
     headers = {
         "Content-Type": "application/json",
-        "xc-auth": api_token
+        "xc-token": api_token
     }
 
     base_url = args.get("url", mcp_state.nocodb_url).rstrip("/")
