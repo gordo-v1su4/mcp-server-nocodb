@@ -2,11 +2,13 @@ version: '3.8'
 
 services:
   nocodb-mcp-server:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.fastapi
     ports:
       - "3001:3001"
     environment:
-      - NODE_ENV=production
+      - PYTHONPATH=/app
       - PORT=3001
       - NOCODB_URL=https://nocodb.v1su4.com
       - NOCODB_API_TOKEN=${NOCODB_API_TOKEN}
@@ -14,7 +16,7 @@ services:
       - .env
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      test: ["CMD", "python", "-c", "import aiohttp, asyncio; asyncio.run(aiohttp.ClientSession().get('http://localhost:3001/health'))"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -24,6 +26,7 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+    command: ["uvicorn", "mcp-server-fastapi:app", "--host", "0.0.0.0", "--port", "3001", "--workers", "1"]
 
   # Optional: Add monitoring with Prometheus
   prometheus:

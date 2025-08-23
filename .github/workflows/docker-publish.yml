@@ -53,6 +53,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
+        file: ./Dockerfile.fastapi
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
@@ -62,18 +63,24 @@ jobs:
     - name: Generate deployment info
       if: github.event_name != 'pull_request'
       run: |
-        echo "## 🚀 Docker Image Published" >> $GITHUB_STEP_SUMMARY
+        echo "## 🚀 Docker Image Published (FastAPI)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "**Registry:** ${{ env.REGISTRY }}" >> $GITHUB_STEP_SUMMARY
         echo "**Image:** ${{ env.IMAGE_NAME }}" >> $GITHUB_STEP_SUMMARY
         echo "**Tags:** ${{ steps.meta.outputs.tags }}" >> $GITHUB_STEP_SUMMARY
+        echo "**Framework:** FastAPI (Python)" >> $GITHUB_STEP_SUMMARY
         echo "" >> $GITHUB_STEP_SUMMARY
         echo "### 📋 Deployment Instructions" >> $GITHUB_STEP_SUMMARY
         echo "1. Pull the image: \`docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest\`" >> $GITHUB_STEP_SUMMARY
-        echo "2. Run with environment variables:" >> $GITHUB_STEP_SUMMARY
+        echo "2. Run with Docker Compose:" >> $GITHUB_STEP_SUMMARY
+        echo "   \`\`\`bash" >> $GITHUB_STEP_SUMMARY
+        echo "   docker-compose up -d" >> $GITHUB_STEP_SUMMARY
+        echo "   \`\`\`" >> $GITHUB_STEP_SUMMARY
+        echo "3. Or run directly:" >> $GITHUB_STEP_SUMMARY
         echo "   \`\`\`bash" >> $GITHUB_STEP_SUMMARY
         echo "   docker run -p 3001:3001 \\" >> $GITHUB_STEP_SUMMARY
         echo "     -e NOCODB_API_TOKEN=your_token \\" >> $GITHUB_STEP_SUMMARY
         echo "     -e NOCODB_URL=https://nocodb.v1su4.com \\" >> $GITHUB_STEP_SUMMARY
+        echo "     -e PYTHONPATH=/app \\" >> $GITHUB_STEP_SUMMARY
         echo "     ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" >> $GITHUB_STEP_SUMMARY
         echo "   \`\`\`" >> $GITHUB_STEP_SUMMARY
