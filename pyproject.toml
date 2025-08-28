@@ -1,6 +1,6 @@
 [project]
-name = "nocodb-mcp-server"
-version = "2.0.0"
+name = "mcp-server-nocodb"
+version = "1.1.0"
 description = "Standard FastMCP NocoDB Server for Claude Code integration"
 authors = [
     {name = "gordo-v1su4", email = "gordo@v1su4.com"}
@@ -21,7 +21,7 @@ Homepage = "https://github.com/gordo-v1su4/mcp-server-nocodb"
 Repository = "https://github.com/gordo-v1su4/mcp-server-nocodb.git"
 
 [project.scripts]
-nocodb-mcp-server = "nocodb_mcp_server:main"
+mcp-server-nocodb = "nocodb_mcp_server:main"
 
 [build-system]
 requires = ["hatchling"]

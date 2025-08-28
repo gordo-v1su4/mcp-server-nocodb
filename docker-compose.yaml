@@ -1,51 +1,19 @@
-version: '3.8'
-
 services:
-  nocodb-mcp-server:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3001:3001"
+  mcp-server-nocodb:
+    image: gordov1su4/mcp-server-nocodb:1.1.0
+    container_name: mcp-server-nocodb
+    restart: unless-stopped
     environment:
-      - PYTHONPATH=/app
       - PORT=3001
       - NOCODB_URL=https://nocodb.v1su4.com
       - NOCODB_API_TOKEN=${NOCODB_API_TOKEN}
-    env_file:
-      - local.env
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
-    logging:
-      driver: "json-file"
-      options:
-        max-size: "10m"
-        max-file: "3"
-    command: ["python", "nocodb_mcp_server.py"]
-
-  # Optional: Add monitoring with Prometheus
-  prometheus:
-    image: prom/prometheus:latest
+      - PYTHONUNBUFFERED=1
     ports:
-      - "9090:9090"
-    volumes:
-      - ./prometheus.yml:/etc/prometheus/prometheus.yml
-    depends_on:
-      - nocodb-mcp-server
-    profiles:
-      - monitoring
+      - "3001:3001"
 
-  # Optional: Add logging with Loki
-  loki:
-    image: grafana/loki:latest
-    ports:
-      - "3100:3100"
-    volumes:
-      - ./loki-config.yml:/etc/loki/local-config.yaml
-    profiles:
-      - monitoring
+# For Coolify deployment:
+# 1. Set NOCODB_API_TOKEN environment variable in Coolify
+# 2. Optionally set NOCODB_URL if different from default  
+# 3. The service will be available on port 3001
+# 4. No health checks - following Archon MCP server pattern for 406 responses
+# 5. No custom networks - uses Docker's default networking

@@ -1,42 +1,41 @@
-# Standard FastMCP NocoDB Server Dockerfile with uv
-FROM python:3.11-slim
+# Simple Dockerfile for single-file MCP server
+FROM python:3.12-slim
 
 # Set working directory
 WORKDIR /app
 
-# Install system dependencies and uv
+# Set environment variables
+ENV PYTHONPATH=/app
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV PORT=3001
+
+# Install system dependencies
 RUN apt-get update && apt-get install -y \
     curl \
-    && rm -rf /var/lib/apt/lists/* \
-    && pip install uv
+    && rm -rf /var/lib/apt/lists/*
 
-# Copy project files
-COPY pyproject.toml .
-COPY README.md .
+# Install Python dependencies directly
+RUN pip install --no-cache-dir \
+    mcp \
+    aiohttp \
+    python-dotenv
+
+# Copy the main server file
 COPY nocodb_mcp_server.py .
-
-# Create virtual environment and install dependencies
-RUN uv venv /opt/venv
-ENV VIRTUAL_ENV=/opt/venv
-ENV PATH="/opt/venv/bin:$PATH"
-
-# Install dependencies with uv
-RUN uv pip install -e .
+COPY .env* ./
 
 # Create non-root user
-RUN addgroup --gid 1001 mcpuser && \
-    adduser --uid 1001 --gid 1001 --shell /bin/bash --disabled-password --no-create-home mcpuser
-
-# Change ownership and switch user
-RUN chown -R mcpuser:mcpuser /app /opt/venv
-USER mcpuser
+RUN groupadd -r appuser && useradd -r -g appuser appuser
+RUN chown -R appuser:appuser /app
+USER appuser
 
 # Expose port
 EXPOSE 3001
 
 # Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:3001/ || exit 1
 
-# Start the server
+# Run the server
 CMD ["python", "nocodb_mcp_server.py"]

@@ -113,12 +113,12 @@ async def lifespan(server: FastMCP) -> AsyncIterator[NocoDBContext]:
 MCP_INSTRUCTIONS = """
 # NocoDB MCP Server Instructions
 
-## 🚨 CRITICAL RULES
+## CRITICAL RULES
 1. **Always provide api_token** - All NocoDB operations require authentication
 2. **Use correct project_id and table_id** - Get these from list operations first
 3. **Handle pagination** - Use limit/offset for large datasets
 
-## 📋 Available Tools
+## Available Tools
 
 ### Connection & Management
 - `nocodb_test_connection()` - Test NocoDB connection and list projects
@@ -136,7 +136,7 @@ MCP_INSTRUCTIONS = """
 - `nocodb_create_discord_reactions_table(project_id)` - Create Discord reactions table
 - `nocodb_get_analytics(project_id, table_id)` - Get Discord reactions analytics
 
-## 🔍 Common Workflows
+## Common Workflows
 
 ### Discord Heart Reactions Workflow
 1. Test connection: `nocodb_test_connection()`
@@ -150,7 +150,7 @@ MCP_INSTRUCTIONS = """
 3. Get records: `nocodb_get_records(project_id, table_id)`
 4. Perform operations as needed
 
-## 🎯 Best Practices
+## Best Practices
 - Always test connection before starting work
 - Use meaningful record data with proper field names
 - Handle errors gracefully and provide user feedback

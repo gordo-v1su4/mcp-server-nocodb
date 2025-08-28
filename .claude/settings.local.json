@@ -22,7 +22,9 @@
       "Bash(bun install:*)",
       "Bash(npm install:*)",
       "Bash(export PATH=\"$HOME/.bun/bin:$PATH\")",
-      "Bash(bun:*)"
+      "Bash(bun:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp:*)"
     ],
     "deny": [],
     "ask": [],
