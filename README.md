@@ -121,6 +121,27 @@ curl -X POST https://mcp.v1su4.com/call \
 
 3. **Restart Claude Code** and enjoy NocoDB tools!
 
+### Option 2: Claude CLI (Recommended for newer versions)
+
+1. **Add your MCP server**:
+   ```bash
+   claude mcp add --transport http nocodb https://mcp-nocodb-v1su4.com
+   ```
+
+2. **Manage existing connections**:
+   ```bash
+   # List all connected servers
+   claude mcp list
+   
+   # Remove old connections (if needed)
+   claude mcp remove server-name
+   ```
+
+3. **Test the connection**:
+   ```bash
+   claude mcp test nocodb
+   ```
+
 ## 🏗️ Architecture
 
 ```

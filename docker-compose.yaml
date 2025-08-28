@@ -10,10 +10,12 @@ services:
       - PYTHONUNBUFFERED=1
     ports:
       - "3001:3001"
+    healthcheck:
+      disable: true
 
 # For Coolify deployment:
-# 1. Set NOCODB_API_TOKEN environment variable in Coolify
+# 1. Set NOCODB_API_TOKEN environment variable in Coolify - hardcode if error 503
 # 2. Optionally set NOCODB_URL if different from default  
 # 3. The service will be available on port 3001
-# 4. No health checks - following Archon MCP server pattern for 406 responses
+# 4. Health check disabled to prevent 406 responses
 # 5. No custom networks - uses Docker's default networking
