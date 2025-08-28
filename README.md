@@ -1,10 +1,10 @@
-# 🚀 NocoDB MCP Server
+# NocoDB MCP Server
 
-A production-ready Model Context Protocol (MCP) server for seamless NocoDB integration with Cursor IDE.
+A standard FastMCP Model Context Protocol server for seamless NocoDB integration with Claude Code.
 
 ## 🎯 What This Is
 
-This MCP server provides Cursor IDE users with direct access to NocoDB operations without leaving their development environment. Perfect for Discord Heart Reactions workflow and other NocoDB automation projects.
+This MCP server provides Claude Code users with direct access to NocoDB operations. Built using the standard FastMCP library with streamable-http transport for remote hosting. Perfect for Discord Heart Reactions workflow and other NocoDB automation projects.
 
 ## ✨ Features
 
@@ -82,7 +82,7 @@ curl -X POST https://mcp.v1su4.com/call \
   -d '{"name": "nocodb_test_connection", "arguments": {"api_token": "your_token"}}'
 ```
 
-## 📋 Cursor IDE Integration
+## 📋 Claude Code Integration
 
 1. **Update MCP Configuration**:
    ```json
@@ -90,9 +90,8 @@ curl -X POST https://mcp.v1su4.com/call \
      "mcpServers": {
        "nocodb": {
          "command": "node",
-         "args": ["/Users/your-username/Documents/Github/mcp-server/mcp-client-wrapper.js"],
+         "args": ["-e", "console.log(JSON.stringify({method:'GET',url:'https://mcp.v1su4.com'}))"],
          "env": {
-           "MCP_SERVER_URL": "https://mcp.v1su4.com",
            "NOCODB_API_TOKEN": "${NOCODB_API_TOKEN}"
          }
        }
@@ -105,16 +104,16 @@ curl -X POST https://mcp.v1su4.com/call \
    export NOCODB_API_TOKEN="your_nocodb_api_token"
    ```
 
-3. **Restart Cursor** and enjoy NocoDB tools!
+3. **Restart Claude Code** and enjoy NocoDB tools!
 
 ## 🏗️ Architecture
 
 ```
-Cursor IDE → Local MCP Wrapper → Hosted MCP Server → NocoDB API
+Claude Code → Hosted FastMCP Server (SSE) → NocoDB API
 ```
 
-- **Local Wrapper**: Handles Cursor integration and communication
-- **Hosted Server**: Production server with all NocoDB operations
+- **FastMCP Server**: Standard MCP server with streamable-http transport
+- **Server-Sent Events**: Real-time communication via SSE protocol
 - **NocoDB API**: Your actual database instance
 
 ## 📚 Documentation

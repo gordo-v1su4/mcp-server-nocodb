@@ -1,0 +1,22 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(C:\\Users\\Gordo\\Documents\\Github\\Archon/**)",
+      "Read(C:\\Users\\Gordo\\Documents\\Github\\Archon\\python\\src\\mcp_server/**)",
+      "Read(C:\\Users\\Gordo\\Documents\\Github\\Archon/**)",
+      "Read(C:\\Users\\Gordo\\Documents\\Github\\Archon/**)",
+      "Read(C:\\Users\\Gordo\\Documents\\Github\\Archon/**)",
+      "Bash(git checkout:*)",
+      "Bash(pip install:*)",
+      "Bash(curl:*)",
+      "Bash(pkill:*)",
+      "Bash(git add:*)"
+    ],
+    "deny": [],
+    "ask": [],
+    "additionalDirectories": [
+      "C:\\Users\\Gordo\\Documents\\Github",
+      "C:\\Users\\Gordo\\Documents"
+    ]
+  }
+}

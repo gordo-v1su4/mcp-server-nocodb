@@ -1,0 +1,61 @@
+[project]
+name = "nocodb-mcp-server"
+version = "2.0.0"
+description = "Standard FastMCP NocoDB Server for Claude Code integration"
+authors = [
+    {name = "gordo-v1su4", email = "gordo@v1su4.com"}
+]
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.11"
+keywords = ["nocodb", "mcp", "claude", "discord", "automation", "api"]
+
+dependencies = [
+    "mcp",
+    "aiohttp",
+    "python-dotenv",
+]
+
+[project.urls]
+Homepage = "https://github.com/gordo-v1su4/mcp-server-nocodb"
+Repository = "https://github.com/gordo-v1su4/mcp-server-nocodb.git"
+
+[project.scripts]
+nocodb-mcp-server = "nocodb_mcp_server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0",
+    "pytest-asyncio>=0.21",
+    "httpx>=0.24",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+
+[tool.ruff.lint]
+select = [
+    "E",  # pycodestyle errors
+    "W",  # pycodestyle warnings
+    "F",  # pyflakes
+    "I",  # isort
+    "B",  # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "UP", # pyupgrade
+]
+ignore = [
+    "E501", # line too long, handled by line-length
+    "B008", # do not perform function calls in argument defaults
+    "C901", # too complex
+]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
