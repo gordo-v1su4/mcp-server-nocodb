@@ -12,7 +12,8 @@ RUN apt-get update && apt-get install -y \
 
 # Copy project files
 COPY pyproject.toml .
-COPY nocodb-mcp-server.py .
+COPY README.md .
+COPY nocodb_mcp_server.py .
 
 # Create virtual environment and install dependencies
 RUN uv venv /opt/venv
@@ -38,4 +39,4 @@ HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD curl -f http://localhost:3001/ || exit 1
 
 # Start the server
-CMD ["python", "nocodb-mcp-server.py"]
+CMD ["python", "nocodb_mcp_server.py"]

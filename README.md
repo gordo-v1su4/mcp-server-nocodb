@@ -18,21 +18,36 @@ This MCP server provides Claude Code users with direct access to NocoDB operatio
 ## 🚀 Quick Deployment
 
 ### Option 1: Coolify (Recommended)
-1. Connect your GitHub repo to Coolify
-2. Set environment variables:
+1. **Create New Resource** → Docker Image
+2. **Image**: `gordo-v1su4/nocodb-mcp-server:latest`
+3. **Port**: `3001`
+4. **Environment Variables**:
    - `NOCODB_API_TOKEN=your_token`
    - `NOCODB_URL=https://nocodb.v1su4.com`
-3. Deploy and enjoy!
+   - `PORT=3001`
+5. **Health Check**: `/health` endpoint
+6. Deploy and enjoy!
 
 ### Option 2: Docker
 ```bash
-docker build -t mcp-server .
-docker run -p 3001:3001 -e NOCODB_API_TOKEN=your_token mcp-server
+# Use pre-built image
+docker run -p 3001:3001 \
+  -e NOCODB_API_TOKEN=your_token \
+  -e NOCODB_URL=https://nocodb.v1su4.com \
+  gordo-v1su4/nocodb-mcp-server:latest
+
+# Or build locally
+bun run docker-build
+bun run docker-run
 ```
 
 ### Option 3: Docker Compose
 ```bash
-docker-compose up -d
+# Standard deployment
+bun run compose-up
+
+# With monitoring (Prometheus/Loki)
+docker-compose --profile monitoring up -d
 ```
 
 ## 🔧 Environment Variables

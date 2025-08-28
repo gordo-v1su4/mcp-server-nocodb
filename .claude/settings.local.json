@@ -16,7 +16,13 @@
       "Bash(claude logout)",
       "Read(C:\\Users\\Gordo/**)",
       "Bash(taskkill:*)",
-      "Bash(docker build:*)"
+      "Bash(docker build:*)",
+      "Bash(npm run docker-build:*)",
+      "Bash(git tag:*)",
+      "Bash(bun install:*)",
+      "Bash(npm install:*)",
+      "Bash(export PATH=\"$HOME/.bun/bin:$PATH\")",
+      "Bash(bun:*)"
     ],
     "deny": [],
     "ask": [],
