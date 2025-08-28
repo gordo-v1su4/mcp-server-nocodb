@@ -10,7 +10,13 @@
       "Bash(pip install:*)",
       "Bash(curl:*)",
       "Bash(pkill:*)",
-      "Bash(git add:*)"
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(NOCODB_API_TOKEN=test_token NOCODB_URL=https://nocodb.v1su4.com PORT=3002 python nocodb-mcp-server.py)",
+      "Bash(claude logout)",
+      "Read(C:\\Users\\Gordo/**)",
+      "Bash(taskkill:*)",
+      "Bash(docker build:*)"
     ],
     "deny": [],
     "ask": [],
