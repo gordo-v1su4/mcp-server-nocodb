@@ -1,0 +1,9 @@
+{
+  "nocodb-mcp": {
+    "command": "mcp-remote",
+    "args": [
+      "https://mcp-nocodb.v1su4.com",
+      "--stdio"
+    ]
+  }
+}
